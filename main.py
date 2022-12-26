@@ -26,17 +26,28 @@ def create_polynomial_labels(x):
 
 x = np.random.rand(20,1)
 x_train, x_test, y_train, y_test = create_polynomial_labels(x)
-
 x_train_1 = x_train[:,0]
 x_train_1 = x_train_1.reshape(-1,1)
+random_to_add = np.random.randn(x_train_1.shape[0], x_train_1.shape[1]) / 20
+x_train_1 = x_train_1 + random_to_add
+x_train = x_train_1
+plt.scatter(x_train_1, y_train)
 
-print(x_train_1.shape)
+x_to_predict = np.arange(0, 1, 0.05).reshape(-1,1)
 
 model = linear_model.LinearRegression()
-model.fit(x_train_1, y_train)
 
-y_prediction = model.predict(x_train_1)
+for power in range(1,13):
 
-plt.scatter(x_train_1, y_train)
-plt.plot(x_train_1, y_prediction, c='orange')
+    x_train = expand_power_of_values(x_train_1, power)
+
+    x_train = x_train.reshape(-1,power)
+
+    model.fit(x_train, y_train)
+
+    x_predict = expand_power_of_values(x_to_predict, power)
+    y_prediction = model.predict(x_predict)
+
+    plt.plot(x_to_predict, y_prediction, c='orange')
+
 plt.show()
