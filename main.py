@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import numpy as np
 
 def expand_squared_values(x):
@@ -11,7 +12,16 @@ def expand_power_of_values(x, power):
         return_x = np.concatenate((return_x, x_to_add), axis=1)
     return return_x
 
-matrix = np.random.rand(20,1)
+def create_polynomial_labels(x):
 
-matrix = expand_power_of_values(matrix, 4)
-print(matrix)
+    x = expand_power_of_values(x, 3)
+    weights = np.array([1, 3, -6])
+    bias = 2
+    y = x @ weights + bias
+    return y
+
+x = np.random.rand(20,1)
+y = create_polynomial_labels(x)
+
+plt.scatter(x, y)
+plt.show()
