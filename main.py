@@ -33,7 +33,7 @@ x_train_1 = x_train_1 + random_to_add
 x_train = x_train_1
 plt.scatter(x_train_1, y_train)
 
-x_to_predict = np.arange(0, 1, 0.05).reshape(-1,1)
+x_to_predict = np.arange(0, 1, 0.01).reshape(-1,1)
 
 model = linear_model.LinearRegression()
 
